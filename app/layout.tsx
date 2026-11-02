@@ -7,27 +7,13 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swa
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://arcanea.ai'),
-  title: 'Arcanea Cosmic Landing — 12 Motion Primitives, Liquid Glass UI',
-  description:
-    'Premium dark landing template with 12 motion primitives, liquid glass UI, and cosmic design tokens. Next.js 16 + Framer Motion + Tailwind. MIT.',
-  openGraph: {
-    title: 'Arcanea Cosmic Landing',
-    description: '12 motion primitives · Liquid glass · MIT · Fork freely',
-    type: 'website',
-    siteName: 'Arcanea',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Arcanea Cosmic Landing',
-    description: '12 motion primitives · Liquid glass · MIT',
-  },
+  metadataBase: new URL('https://aegis.example'),
+  title: 'AEGIS — Enterprise Agent Infrastructure',
+  description: 'Build, orchestrate, investigate and govern intelligent agents through one unified operational platform.',
+  openGraph: { title: 'AEGIS — Enterprise Agent Infrastructure', description: 'Intelligence needs infrastructure.', type: 'website', siteName: 'AEGIS' },
+  twitter: { card: 'summary_large_image', title: 'AEGIS — Enterprise Agent Infrastructure', description: 'Intelligence needs infrastructure.' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="font-sans bg-[#09090b] text-white antialiased">{children}</body>
-    </html>
-  );
+  return <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}><body className="antialiased">{children}</body></html>;
 }

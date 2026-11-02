@@ -1,170 +1,105 @@
 import { SplitText } from '@/components/motion/split-text';
-import { LiquidGlass } from '@/components/motion/liquid-glass';
 import { Magnetic } from '@/components/motion/magnetic';
 import { Reveal, StaggerReveal } from '@/components/motion/reveal';
-import { GradientMesh } from '@/components/motion/gradient-mesh';
-import { NumberTicker } from '@/components/motion/number-ticker';
 import { Marquee } from '@/components/motion/marquee';
 
-const FEATURES = [
-  { name: 'SplitText', desc: 'Character-by-character reveal with blur-to-focus.', color: '#00bcd4' },
-  { name: 'LiquidGlass', desc: '4-layer glass with noise, sheen, tilt, and glow.', color: '#a78bfa' },
-  { name: 'TiltCard', desc: '3D perspective tilt on hover via spring physics.', color: '#34d399' },
-  { name: 'GlowCard', desc: 'Cursor-following border glow. Linear-tier.', color: '#60a5fa' },
-  { name: 'Magnetic', desc: 'Cursor attraction on CTAs with spring physics.', color: '#f472b6' },
-  { name: 'NumberTicker', desc: 'Count-up animation with spring interpolation.', color: '#fbbf24' },
+const topologyNodes = [
+  { label: 'AGENT RUNTIME', detail: 'planner / executor', className: 'topology-agent' },
+  { label: 'ORCHESTRATION', detail: 'routing / memory', className: 'topology-orchestrator' },
+  { label: 'MCP TOOLS', detail: 'systems / APIs', className: 'topology-tools' },
+  { label: 'KNOWLEDGE', detail: 'retrieval / evidence', className: 'topology-knowledge' },
+  { label: 'POLICY ENGINE', detail: 'guardrails / approval', className: 'topology-policy' },
+  { label: 'OBSERVABILITY', detail: 'traces / verification', className: 'topology-observe' },
 ];
 
-const STATS = [
-  { value: 12, suffix: '', label: 'Primitives' },
-  { value: 0, suffix: '', label: 'Dependencies' },
-  { value: 60, suffix: 'fps', label: 'Animations' },
-];
+const integrations = ['MCP SERVERS', 'REST APIs', 'SQL SYSTEMS', 'VECTOR STORES', 'CLOUD RUNTIMES', 'HUMAN TEAMS'];
 
-const STACK = ['Next.js 16', 'React 19', 'Framer Motion 11', 'Tailwind CSS', 'TypeScript', 'MIT License'];
+function Arrow() {
+  return <span aria-hidden="true" className="text-[#648BFF]">↗</span>;
+}
+
+function Topology() {
+  return (
+    <div className="topology-panel" aria-label="Illustrative AEGIS infrastructure topology">
+      <div className="topology-label">LIVE SYSTEM TOPOLOGY <span className="status-dot" /> DEMO DATA</div>
+      <div className="topology-grid-lines" />
+      <div className="topology-line line-one" />
+      <div className="topology-line line-two" />
+      <div className="topology-line line-three" />
+      <div className="topology-line line-four" />
+      {topologyNodes.map((node, index) => (
+        <div key={node.label} className={`topology-node ${node.className}`}>
+          <div className="node-index">0{index + 1}</div>
+          <div>
+            <div className="text-[10px] font-mono tracking-[0.16em] text-[#e8edf5]">{node.label}</div>
+            <div className="mt-1 text-[10px] text-[#778196]">{node.detail}</div>
+          </div>
+          <span className="node-pulse" />
+        </div>
+      ))}
+      <div className="topology-core"><span>AEGIS</span><small>CONTROL PLANE</small></div>
+      <div className="topology-caption">Signals move through a governed execution loop.</div>
+    </div>
+  );
+}
+
+function SectionMarker({ number, label }: { number: string; label: string }) {
+  return <div className="section-marker"><span>{number}</span><span>{label}</span></div>;
+}
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen">
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-[#09090b]" />
-        <GradientMesh colors={['#00bcd4', '#a78bfa', '#f472b6']} intensity={0.06} />
-      </div>
+    <div className="site-shell">
+      <header className="site-header">
+        <a href="#top" className="brand-mark" aria-label="AEGIS home"><span className="brand-cross">+</span> AEGIS</a>
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary navigation">
+          <a href="#platform" className="nav-link">Platform</a>
+          <a href="#operations" className="nav-link">Operations</a>
+          <a href="#architecture" className="nav-link">Architecture</a>
+        </nav>
+        <Magnetic strength={8}><a href="#contact" className="header-cta">Request briefing <Arrow /></a></Magnetic>
+      </header>
 
-      <main className="max-w-5xl mx-auto px-6">
-        {/* Hero */}
-        <section className="pt-32 pb-20 text-center">
-          <Reveal y={12} blur>
-            <p className="text-[11px] font-mono tracking-[0.3em] text-[#708094] mb-6 uppercase">
-              12 motion primitives · MIT licensed · Copy and paste
-            </p>
-          </Reveal>
-
-          <SplitText
-            as="h1"
-            text="Premium motion for Next.js."
-            className="text-4xl md:text-6xl lg:text-7xl font-[family-name:var(--font-display)] font-bold text-[#e6eefc] mb-4 tracking-tight"
-            delay={0.15}
-            stagger={0.03}
-          />
-
-          <Reveal delay={0.8} y={12}>
-            <p className="text-base md:text-lg text-[#9bb1d0] max-w-xl mx-auto leading-relaxed">
-              LiquidGlass. SplitText. TiltCard. Magnetic. GlowCard. Marquee.
-              Ship a premium dark landing page in minutes, not days.
-            </p>
-          </Reveal>
-
-          <Reveal y={16} delay={1.0}>
-            <div className="flex justify-center gap-10 mt-10">
-              {STATS.map((s, i) => (
-                <div key={s.label} className="text-center">
-                  <p className="text-2xl md:text-3xl font-[family-name:var(--font-display)] font-bold text-[#e6eefc]">
-                    <NumberTicker value={s.value} suffix={s.suffix} delay={1.2 + i * 0.1} />
-                  </p>
-                  <p className="text-[9px] font-mono tracking-widest uppercase text-[#708094] mt-1">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal y={12} delay={1.4}>
-            <div className="flex justify-center gap-3 mt-10">
-              <Magnetic>
-                <a
-                  href="https://github.com/frankxai/cosmic-landing-template"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00bcd4]/10 border border-[#00bcd4]/30 text-sm font-medium text-[#00bcd4] hover:bg-[#00bcd4]/20 transition-all hover:shadow-[0_0_30px_rgba(0,188,212,0.15)]"
-                >
-                  View source
-                </a>
-              </Magnetic>
-              <Magnetic>
-                <a
-                  href="https://vercel.com/new/clone?repository-url=https://github.com/frankxai/cosmic-landing-template"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm font-medium text-[#e6eefc] hover:bg-white/[0.08] transition-colors"
-                >
-                  Deploy to Vercel
-                </a>
-              </Magnetic>
-            </div>
-          </Reveal>
+      <main id="top">
+        <section className="hero-section layout-grid">
+          <div className="hero-copy">
+            <Reveal y={10}><p className="eyebrow">ENTERPRISE AGENT INFRASTRUCTURE &amp; OPERATIONS</p></Reveal>
+            <SplitText as="h1" text="INTELLIGENCE NEEDS INFRASTRUCTURE." className="hero-title" delay={0.1} stagger={0.025} />
+            <Reveal delay={0.75} y={14}><p className="hero-lede">Build, orchestrate, investigate and govern intelligent agents through one unified operational platform.</p></Reveal>
+            <Reveal delay={0.9} y={12}><div className="hero-actions">
+              <Magnetic><a className="button-primary" href="#platform">Explore the platform <Arrow /></a></Magnetic>
+              <a className="button-text" href="#architecture">View architecture <Arrow /></a>
+            </div></Reveal>
+            <Reveal delay={1.1} y={10}><div className="hero-footnote"><span className="status-dot" /> SYSTEM STATUS <strong>OPERATIONAL</strong><span className="divider" /> v.1.4.0 / EU-WEST</div></Reveal>
+          </div>
+          <Reveal delay={0.35} y={18} className="hero-visual"><Topology /></Reveal>
         </section>
 
-        {/* Feature Grid */}
-        <section className="mb-20">
-          <Reveal y={12}>
-            <p className="text-[10px] font-mono tracking-[0.25em] text-[#708094] mb-8 uppercase text-center">
-              What&apos;s included
-            </p>
-          </Reveal>
-
-          <StaggerReveal className="grid md:grid-cols-2 lg:grid-cols-3 gap-4" stagger={0.06}>
-            {FEATURES.map((f) => (
-              <Reveal key={f.name} y={20}>
-                <LiquidGlass
-                  intensity="standard"
-                  tint={f.color}
-                  glow
-                  tilt
-                  tiltIntensity={6}
-                  className="rounded-2xl border border-white/[0.06] hover:border-white/[0.14] transition-colors"
-                >
-                  <div className="p-6">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: f.color, boxShadow: `0 0 12px ${f.color}60` }} />
-                      <h3 className="text-sm font-[family-name:var(--font-display)] font-semibold text-[#e6eefc]">{f.name}</h3>
-                    </div>
-                    <p className="text-xs text-[#9bb1d0] leading-relaxed">{f.desc}</p>
-                  </div>
-                </LiquidGlass>
-              </Reveal>
-            ))}
-          </StaggerReveal>
+        <section id="platform" className="section-block layout-grid">
+          <div><SectionMarker number="01" label="INFRASTRUCTURE TOPOLOGY" /></div>
+          <div className="section-content"><h2>One control plane for every intelligent system.</h2><p className="section-intro">AEGIS makes the hidden complexity of agent systems visible, governable and ready to operate at enterprise scale.</p><div className="signal-row"><span>INGEST</span><i /> <span>REASON</span><i /> <span>ACT</span><i /> <span>VERIFY</span></div></div>
         </section>
 
-        {/* Tech Stack Marquee */}
-        <section className="mb-20">
-          <Reveal y={12}>
-            <p className="text-[10px] font-mono tracking-[0.25em] text-[#708094] mb-6 uppercase text-center">
-              Built with
-            </p>
-          </Reveal>
-          <Marquee duration={30}>
-            {STACK.map((tech) => (
-              <span
-                key={tech}
-                className="inline-flex items-center px-5 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] text-xs font-mono text-white/50 whitespace-nowrap"
-              >
-                {tech}
-              </span>
-            ))}
-          </Marquee>
+        <section id="operations" className="section-block layout-grid bordered-top">
+          <div><SectionMarker number="02" label="AGENT OPERATIONS" /></div>
+          <div className="section-content"><div className="feature-split"><div><h2>From first prompt to dependable operation.</h2><p className="section-intro">Compose multi-step agents, route work across tools, and promote proven runs into resilient production workflows.</p><a className="inline-link" href="#contact">Explore agent operations <Arrow /></a></div><div className="operation-list"><div><span>01</span><b>BUILD</b><em>Define capabilities and context</em></div><div><span>02</span><b>ORCHESTRATE</b><em>Coordinate tools and handoffs</em></div><div><span>03</span><b>DEPLOY</b><em>Release with policy controls</em></div></div></div></div>
         </section>
 
-        {/* CTA */}
-        <Reveal y={16} className="pb-24 text-center">
-          <h2 className="text-2xl md:text-3xl font-[family-name:var(--font-display)] font-bold text-[#e6eefc] mb-3 tracking-tight">
-            Your landing page. Your brand. Your code.
-          </h2>
-          <p className="text-sm text-[#9bb1d0] mb-6">
-            MIT licensed. Copy the primitives into your project or deploy the whole template.
-          </p>
-          <Magnetic>
-            <a
-              href="https://vercel.com/new/clone?repository-url=https://github.com/frankxai/cosmic-landing-template"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#00bcd4] to-[#0d47a1] text-[#09090b] font-semibold text-sm hover:shadow-[0_0_40px_rgba(0,188,212,0.3)] transition-all"
-            >
-              Deploy now
-            </a>
-          </Magnetic>
-        </Reveal>
+        <section className="product-section bordered-top"><div className="product-heading layout-grid"><SectionMarker number="03" label="OPERATIONAL CONTROL" /><div><h2>A clear view of work in motion.</h2><p className="section-intro">Illustrative workspace data. See the system, the evidence and the decisions behind every execution.</p></div></div><div className="control-panel"><div className="control-topbar"><span className="brand-mark"><span className="brand-cross">+</span> AEGIS / CONTROL</span><span className="demo-badge">ILLUSTRATIVE DATA</span><span className="control-time">14:32:08 UTC</span></div><div className="control-body"><aside><div className="aside-label">ACTIVE AGENTS</div><div className="agent-item active"><span className="status-dot" /><div><b>Atlas / Research</b><small>investigation · running</small></div><strong>82%</strong></div><div className="agent-item"><span className="status-dot amber" /><div><b>Sentinel / Policy</b><small>approval · waiting</small></div><strong>—</strong></div><div className="agent-item"><span className="status-dot violet" /><div><b>Relay / Deploy</b><small>verification · queued</small></div><strong>—</strong></div></aside><div className="timeline"><div className="aside-label">INVESTIGATION TIMELINE <span>RUN-2048</span></div><div className="timeline-event"><span className="event-time">14:31:42</span><div><b>Retrieval complete</b><p>12 evidence sources ranked · confidence 0.94</p></div></div><div className="timeline-event"><span className="event-time">14:31:48</span><div><b>Policy evaluation passed</b><p>Scope: production-read · approval not required</p></div></div><div className="timeline-event current"><span className="event-time">14:32:08</span><div><b>Agent reasoning</b><p>Comparing deployment manifests across 3 regions</p></div></div><div className="timeline-event"><span className="event-time">NEXT</span><div><b>Human verification</b><p>Awaiting operator confirmation</p></div></div></div><div className="health"><div className="aside-label">INFRASTRUCTURE HEALTH</div><div className="health-number">99.98<span>%</span></div><div className="health-line"><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /></div><div className="health-row"><span>RUNTIME</span><b>STABLE</b></div><div className="health-row"><span>TOOL LATENCY</span><b>128 MS</b></div><div className="health-row"><span>POLICY CHECKS</span><b>100%</b></div></div></div></div></section>
+
+        <section className="section-block layout-grid bordered-top"><div><SectionMarker number="04" label="INVESTIGATION ENGINE" /></div><div className="section-content"><h2>Evidence before action.</h2><p className="section-intro">Give agents a rigorous path from question to conclusion. AEGIS traces retrieval, reasoning and sources so teams can trust the outcome.</p><div className="quote-block"><span>“</span><p>Every decision carries its context, its constraints and its proof.</p></div></div></section>
+
+        <section className="section-block layout-grid bordered-top"><div><SectionMarker number="05" label="GOVERNANCE" /></div><div className="section-content"><h2>Autonomy with a boundary.</h2><p className="section-intro">Encode policy once. Enforce it at every tool call, approval gate and deployment boundary.</p><div className="governance-grid"><div><b>POLICY EVALUATION</b><span>Real-time checks before execution</span></div><div><b>HUMAN APPROVAL</b><span>Escalation when judgment matters</span></div><div><b>AUDITABILITY</b><span>Immutable record of system action</span></div></div></div></section>
+
+        <section className="integration-section bordered-top"><SectionMarker number="06" label="INTEGRATION ECOSYSTEM" /><h2>Connect the systems that matter.</h2><Marquee duration={34}><div className="integration-track">{integrations.map((item) => <span key={item}>{item} <Arrow /></span>)}</div></Marquee></section>
+
+        <section className="section-block layout-grid bordered-top"><div><SectionMarker number="07" label="OBSERVABILITY" /></div><div className="section-content"><h2>Understand the system behaviour.</h2><p className="section-intro">Follow every signal from intent to outcome. Operational intelligence for the people responsible for intelligent systems.</p><div className="observability-lines"><div><span>TRACE COVERAGE</span><b>100%</b><i style={{ width: '100%' }} /></div><div><span>DECISION LATENCY</span><b>142ms</b><i style={{ width: '68%' }} /></div><div><span>VERIFICATION RATE</span><b>94.2%</b><i style={{ width: '94%' }} /></div></div></div></section>
+
+        <section id="architecture" className="architecture-section bordered-top"><div className="layout-grid"><SectionMarker number="08" label="ARCHITECTURE" /><div><h2>Built in layers.<br /><em>Operated as one.</em></h2><p className="section-intro">A modular foundation for teams moving from experimental agents to dependable infrastructure.</p></div></div><div className="architecture-stack"><div><span>01</span><b>INTERFACE LAYER</b><small>Web console · API · SDK</small></div><div><span>02</span><b>CONTROL PLANE</b><small>Orchestration · policy · identity</small></div><div><span>03</span><b>EXECUTION FABRIC</b><small>Runtimes · tools · retrieval</small></div><div><span>04</span><b>OBSERVATION LAYER</b><small>Traces · events · verification</small></div></div></section>
+
+        <section id="contact" className="closing-section"><p className="eyebrow">AEGIS / ENTERPRISE AGENT INFRASTRUCTURE</p><h2>Intelligence needs infrastructure.</h2><p>Build the operational layer your agents deserve.</p><Magnetic><a className="button-primary" href="mailto:briefing@aegis.example">Request a briefing <Arrow /></a></Magnetic></section>
       </main>
+      <footer className="site-footer"><span>© 2026 AEGIS SYSTEMS</span><span>INTELLIGENCE NEEDS INFRASTRUCTURE.</span><a href="#top">BACK TO TOP ↑</a></footer>
     </div>
   );
 }
